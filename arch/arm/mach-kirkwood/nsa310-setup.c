@@ -96,17 +96,6 @@ static struct mtd_partition nsa310_nand_parts[] = {
 	},
 };
 
-static struct i2c_board_info __initdata nsa310_i2c_rtc = {
-	I2C_BOARD_INFO("pcf8563", 0x51),
-};
-
-static struct mv643xx_eth_platform_data nsa310_ge00_data = {
-	.phy_addr	= MV643XX_ETH_PHY_ADDR(0),
-	/* FIXME: autonegotiation */
-	.speed		= SPEED_1000,
-	.duplex		= DUPLEX_FULL,
-};
-
 static struct mv_sata_platform_data nsa310_sata_data = {
 	.n_ports	= 2,
 };
@@ -306,7 +295,6 @@ static void __init nsa310_init(void)
 	kirkwood_nand_init(ARRAY_AND_SIZE(nsa310_nand_parts), 40);
 
 	kirkwood_i2c_init();
-	i2c_register_board_info(0, &nsa310_i2c_rtc, 1);
 
 	if (gpio_request(NSA310_GPIO_USB_POWER, "USB Power Enable") ||
 	    gpio_direction_output(NSA310_GPIO_USB_POWER, usb_power))
@@ -314,7 +302,6 @@ static void __init nsa310_init(void)
 	gpio_free(NSA310_GPIO_USB_POWER);
 
 	kirkwood_ehci_init();
-	kirkwood_ge00_init(&nsa310_ge00_data);
 	kirkwood_sata_init(&nsa310_sata_data);
 	platform_device_register(&nsa310_leds);
 	platform_device_register(&nsa310_buttons);
