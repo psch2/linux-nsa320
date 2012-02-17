@@ -1,7 +1,7 @@
 /*
- * arch/arm/mach-kirkwood/nsa320-setup.c
+ * arch/arm/mach-kirkwood/nsa310-setup.c
  *
- * ZyXEL NSA320 2-Bay Power Media Server Setup
+ * ZyXEL NSA310 1-Bay Power Media Server Setup
  *
  * This file is licensed under the terms of the GNU General Public
  * License version 2.  This program is licensed "as is" without any
@@ -55,7 +55,7 @@
  * cat: read error: Input/output error
  */
 
-static struct mtd_partition nsa320_nand_parts[] = {
+static struct mtd_partition nsa310_nand_parts[] = {
 	{
 		.name = "uboot",
 		.offset = 0,
@@ -96,22 +96,11 @@ static struct mtd_partition nsa320_nand_parts[] = {
 	},
 };
 
-static struct i2c_board_info __initdata nsa320_i2c_rtc = {
-	I2C_BOARD_INFO("pcf8563", 0x51),
-};
-
-static struct mv643xx_eth_platform_data nsa320_ge00_data = {
-	.phy_addr	= MV643XX_ETH_PHY_ADDR(0),
-	/* FIXME: autonegotiation */
-	.speed		= SPEED_1000,
-	.duplex		= DUPLEX_FULL,
-};
-
-static struct mv_sata_platform_data nsa320_sata_data = {
+static struct mv_sata_platform_data nsa310_sata_data = {
 	.n_ports	= 2,
 };
 
-static struct gpio_keys_button nsa320_button_pins[] = {
+static struct gpio_keys_button nsa310_button_pins[] = {
 	{
 		.code		= KEY_RESTART,
 		.gpio		= 36,
@@ -130,99 +119,99 @@ static struct gpio_keys_button nsa320_button_pins[] = {
 	},
 };
 
-static struct gpio_keys_platform_data nsa320_button_data = {
-	.buttons	= nsa320_button_pins,
-	.nbuttons	= ARRAY_SIZE(nsa320_button_pins),
+static struct gpio_keys_platform_data nsa310_button_data = {
+	.buttons	= nsa310_button_pins,
+	.nbuttons	= ARRAY_SIZE(nsa310_button_pins),
 };
 
-static struct platform_device nsa320_buttons = {
+static struct platform_device nsa310_buttons = {
 	.name		= "gpio-keys",
 	.id		= -1,
 	.num_resources	= 0,
 	.dev		= {
-		.platform_data	= &nsa320_button_data,
+		.platform_data	= &nsa310_button_data,
 	},
 };
 
-static struct gpio_led nsa320_led_pins[] = {
+static struct gpio_led nsa310_led_pins[] = {
 	{
-		.name			= "nsa320:green:hdd2",
+		.name			= "nsa310:green:hdd2",
 		.default_trigger	= "default-off",
 		.gpio			= 12,
 		.active_low		= 0,
 	}, {
-		.name			= "nsa320:red:hdd2",
+		.name			= "nsa310:red:hdd2",
 		.default_trigger	= "default-off",
 		.gpio			= 13,
 		.active_low		= 0,
 	}, {
-		.name			= "nsa320:green:usb",
+		.name			= "nsa310:green:usb",
 		.default_trigger	= "default-off",
 		.gpio			= 15,
 		.active_low		= 0,
 	}, {
-		.name			= "nsa320:green:sys",
+		.name			= "nsa310:green:sys",
 		.default_trigger	= "default-off",
 		.gpio			= 28,
 		.active_low		= 0,
 	}, {
-		.name			= "nsa320:orange:sys",
+		.name			= "nsa310:orange:sys",
 		.default_trigger	= "default-on",
 		.gpio			= 29,
 		.active_low		= 0,
 	}, {
-		.name			= "nsa320:green:copy",
+		.name			= "nsa310:green:copy",
 		.default_trigger	= "default-off",
 		.gpio			= 39,
 		.active_low		= 0,
 	}, {
-		.name			= "nsa320:red:copy",
+		.name			= "nsa310:red:copy",
 		.default_trigger	= "default-off",
 		.gpio			= 40,
 		.active_low		= 0,
 	}, {
-		.name			= "nsa320:green:hdd1",
+		.name			= "nsa310:green:hdd1",
 		.default_trigger	= "default-off",
 		.gpio			= 41,
 		.active_low		= 0,
 	}, {
-		.name			= "nsa320:red:hdd1",
+		.name			= "nsa310:red:hdd1",
 		.default_trigger	= "default-off",
 		.gpio			= 42,
 		.active_low		= 0,
 	},
 };
 
-static struct gpio_led_platform_data nsa320_led_data = {
-	.leds		= nsa320_led_pins,
-	.num_leds	= ARRAY_SIZE(nsa320_led_pins),
+static struct gpio_led_platform_data nsa310_led_data = {
+	.leds		= nsa310_led_pins,
+	.num_leds	= ARRAY_SIZE(nsa310_led_pins),
 };
 
-static struct platform_device nsa320_leds = {
+static struct platform_device nsa310_leds = {
 	.name	= "leds-gpio",
 	.id	= -1,
 	.dev	= {
-		.platform_data	= &nsa320_led_data,
+		.platform_data	= &nsa310_led_data,
 	},
 };
 
-static struct nsa3xx_hwmon_platform_data nsa320_hwmon_data = {
+static struct nsa3xx_hwmon_platform_data nsa310_hwmon_data = {
 	/* GPIOs connected to Holtek HT46R065 MCU */
 	.act_pin  = 17,
 	.clk_pin  = 16,
 	.data_pin = 14,
 };
 
-static struct platform_device nsa320_hwmon = {
+static struct platform_device nsa310_hwmon = {
 	.name		= "nsa3xx-hwmon",
 	.id		= -1,
 	.num_resources	= 0,
 	.dev		= {
-		.platform_data	= &nsa320_hwmon_data,
+		.platform_data	= &nsa310_hwmon_data,
 	},
 };
 
-static unsigned int nsa320_mpp_config[] __initdata = {
+static unsigned int nsa310_mpp_config[] __initdata = {
 	MPP0_NF_IO2,
 	MPP1_NF_IO3,
 	MPP2_NF_IO4,
@@ -276,61 +265,59 @@ static unsigned int nsa320_mpp_config[] __initdata = {
 	0
 };
 
-#define NSA320_GPIO_USB_POWER	21
-#define NSA320_GPIO_POWER_OFF	48
+#define NSA310_GPIO_USB_POWER	21
+#define NSA310_GPIO_POWER_OFF	48
 
-static void nsa320_power_off(void)
+static void nsa310_power_off(void)
 {
-	gpio_set_value(NSA320_GPIO_POWER_OFF, 1);
+	gpio_set_value(NSA310_GPIO_POWER_OFF, 1);
 }
 
 static int __initdata usb_power = 1; /* default "on" */
 
-static int __init nsa320_usb_power(char *str)
+static int __init nsa310_usb_power(char *str)
 {
 	usb_power = strncmp(str, "off", 3) ? 1 : 0;
 	return 1;
 }
-/* Parse boot_command_line string nsa320_usb_power=on|off */
-__setup("nsa320_usb_power=", nsa320_usb_power);
+/* Parse boot_command_line string nsa310_usb_power=on|off */
+__setup("nsa310_usb_power=", nsa310_usb_power);
 
-static void __init nsa320_init(void)
+static void __init nsa310_init(void)
 {
 	/*
 	 * Basic setup. Needs to be called early.
 	 */
 	kirkwood_init();
-	kirkwood_mpp_conf(nsa320_mpp_config);
+	kirkwood_mpp_conf(nsa310_mpp_config);
 
 	kirkwood_uart0_init();
-	kirkwood_nand_init(ARRAY_AND_SIZE(nsa320_nand_parts), 40);
+	kirkwood_nand_init(ARRAY_AND_SIZE(nsa310_nand_parts), 40);
 
 	kirkwood_i2c_init();
-	i2c_register_board_info(0, &nsa320_i2c_rtc, 1);
 
-	if (gpio_request(NSA320_GPIO_USB_POWER, "USB Power Enable") ||
-	    gpio_direction_output(NSA320_GPIO_USB_POWER, usb_power))
-		pr_err("nsa320: failed to configure USB power enable GPIO)\n");
-	gpio_free(NSA320_GPIO_USB_POWER);
+	if (gpio_request(NSA310_GPIO_USB_POWER, "USB Power Enable") ||
+	    gpio_direction_output(NSA310_GPIO_USB_POWER, usb_power))
+		pr_err("nsa310: failed to configure USB power enable GPIO)\n");
+	gpio_free(NSA310_GPIO_USB_POWER);
 
 	kirkwood_ehci_init();
-	kirkwood_ge00_init(&nsa320_ge00_data);
-	kirkwood_sata_init(&nsa320_sata_data);
-	platform_device_register(&nsa320_leds);
-	platform_device_register(&nsa320_buttons);
-	platform_device_register(&nsa320_hwmon);
+	kirkwood_sata_init(&nsa310_sata_data);
+	platform_device_register(&nsa310_leds);
+	platform_device_register(&nsa310_buttons);
+	platform_device_register(&nsa310_hwmon);
 
-	if (gpio_request(NSA320_GPIO_POWER_OFF, "power-off") ||
-	    gpio_direction_output(NSA320_GPIO_POWER_OFF, 0))
-		pr_err("nsa320: failed to configure power-off GPIO\n");
+	if (gpio_request(NSA310_GPIO_POWER_OFF, "power-off") ||
+	    gpio_direction_output(NSA310_GPIO_POWER_OFF, 0))
+		pr_err("nsa310: failed to configure power-off GPIO\n");
 	else
-		pm_power_off = nsa320_power_off;
+		pm_power_off = nsa310_power_off;
 }
 
-MACHINE_START(NSA320, "ZyXEL NSA320 2-Bay Power Media Server")
-	/* Maintainer: Peter Schildmann <linux@schildmann.info> */
+MACHINE_START(NSA310, "ZyXEL NSA310 1-Bay Power Media Server")
+	/* Maintainer: Peter Oostewechel <peter_oostewechel@hotmail.com> */
 	.atag_offset	= 0x100,
-	.init_machine	= nsa320_init,
+	.init_machine	= nsa310_init,
 	.map_io		= kirkwood_map_io,
 	.init_early	= kirkwood_init_early,
 	.init_irq	= kirkwood_init_irq,
