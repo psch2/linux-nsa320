@@ -303,7 +303,7 @@ static void __init nsa310_init(void)
 	kirkwood_mpp_conf(nsa310_mpp_config);
 
 	kirkwood_uart0_init();
-	kirkwood_nand_init(ARRAY_AND_SIZE(nsa310_nand_parts), 25);
+	kirkwood_nand_init(ARRAY_AND_SIZE(nsa310_nand_parts), 40);
 
 	kirkwood_i2c_init();
 	i2c_register_board_info(0, &nsa310_i2c_rtc, 1);
