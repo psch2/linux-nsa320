@@ -131,10 +131,10 @@ config MACH_T5325
 	  HP t5325 Thin Client.
 
 config MACH_NSA310
-	bool "Zyxel NSA310 1-Bay Power Media Server"
+	bool "ZyXEL NSA310 1-Bay Power Media Server"
 	help
 	  Say 'Y' here if you want your kernel to support the
-	  Zyxel NSA-310.
+	  ZyXEL NSA310.
 
 config MACH_NSA320
 	bool "ZyXEL NSA320 2-Bay Power Media Server"
