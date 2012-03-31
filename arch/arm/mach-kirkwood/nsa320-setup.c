@@ -15,7 +15,6 @@
 #include <linux/mtd/partitions.h>
 #include <linux/ata_platform.h>
 #include <linux/mv643xx_eth.h>
-#include <linux/ethtool.h>  /* for SPEED_1000, DUPLEX_FULL */
 #include <linux/i2c.h>
 #include <linux/gpio.h>
 #include <linux/gpio_keys.h>
@@ -101,10 +100,7 @@ static struct i2c_board_info __initdata nsa320_i2c_rtc = {
 };
 
 static struct mv643xx_eth_platform_data nsa320_ge00_data = {
-	.phy_addr	= MV643XX_ETH_PHY_ADDR(0),
-	/* FIXME: autonegotiation */
-	.speed		= SPEED_1000,
-	.duplex		= DUPLEX_FULL,
+	.phy_addr	= MV643XX_ETH_PHY_ADDR(1),
 };
 
 static struct mv_sata_platform_data nsa320_sata_data = {
