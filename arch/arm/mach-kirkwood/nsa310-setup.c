@@ -28,33 +28,6 @@
 #include "common.h"
 #include "mpp.h"
 
-/*
- * FIXME: /dev/mtdblock6 and /dev/mtdblock8 only:
- *
- * / # cat /dev/mtdblock6 > /dev/null
- * [   42.067831] uncorrectable error :
- * [   42.071125] uncorrectable error :
- * [   42.074569] end_request: I/O error, dev mtdblock6, sector 0
- * [   42.080346] Buffer I/O error on device mtdblock6, logical block 0
- * [   42.086535] uncorrectable error :
- * [   42.089777] uncorrectable error :
- * [   42.093209] end_request: I/O error, dev mtdblock6, sector 8
- * [   42.098988] Buffer I/O error on device mtdblock6, logical block 1
- * [   42.105172] uncorrectable error :
- * [   42.108413] uncorrectable error :
- * [   42.111833] end_request: I/O error, dev mtdblock6, sector 16
- * [   42.117701] Buffer I/O error on device mtdblock6, logical block 2
- * [   42.123964] uncorrectable error :
- * [   42.127204] uncorrectable error :
- * [   42.130625] end_request: I/O error, dev mtdblock6, sector 24
- * [   42.136493] Buffer I/O error on device mtdblock6, logical block 3
- * [   42.142724] uncorrectable error :
- * [   42.145960] uncorrectable error :
- * [   42.149381] end_request: I/O error, dev mtdblock6, sector 0
- * [   42.155163] Buffer I/O error on device mtdblock6, logical block 0
- * cat: read error: Input/output error
- */
-
 static struct mtd_partition nsa310_nand_parts[] = {
 	{
 		.name = "uboot",
